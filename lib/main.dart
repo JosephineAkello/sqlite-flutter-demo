@@ -12,6 +12,15 @@ class Clothes {
   final int price;
 
   Clothes({this.id, this.name,this.price});
+
+Map<String, dynamic> toMap(){
+  return {
+    'id': id,
+    'name' : name,
+    'price' : price,
+  };
+}
+
 }
 class Sqlite extends StatelessWidget{
   Widget build(context){
