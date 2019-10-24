@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'dart:async';
 
 void main(){
   runApp(Sqlite());
@@ -38,7 +39,7 @@ class Sqlite extends StatelessWidget{
       )
     );
   }
-  Future<Database> database = openDatabase(
+  Future<Database> database = openDatabase (
     join(await getDatabasesPath(), 'clothes_database.db'),
     onCreate: (db, version){
      return db.execute(
@@ -85,6 +86,16 @@ Future<List<Clothes>> clothes() async{
   });
 
 }
+Future<void> updateClothes(Clothes clothes) async{
+  final db = await database;
+  await db.update('clothes', clothes.toMap(),
+  //ensure clothes have matching id
+   where:  'id = ?',
+   //pass the clothes id as WhereArgs to prevent sql injecton
+   whereArgs: [clothes.id],
+  );
+}
+
 
 Future<void> deleteClothes(int id) async{
   final db=  await database;
