@@ -50,7 +50,7 @@ class Sqlite extends StatelessWidget{
   );
   Future<void> insertClothes(Clothes clothes) async{
     //get reference to db
-    final Database db = database;
+    final Database db = await database;
  //stores the map into clothes table
  await db.insert('clothes', 
  clothes.toMap(),
@@ -58,5 +58,14 @@ class Sqlite extends StatelessWidget{
  conflictAlgorithm: ConflictAlgorithm.replace,
  );
 
-  }
+  
+//create clothe and add it to Clothes table
+  final kitenge = Clothes(
+    id: 0,
+    name: 'Kitenge',
+    price: 100,
+  );
+
+  await insertClothes(kitenge);
+}
 }
