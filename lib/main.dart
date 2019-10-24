@@ -68,4 +68,21 @@ class Sqlite extends StatelessWidget{
 
   await insertClothes(kitenge);
 }
+//retrieve list of clothes
+Future<List<Clothes>> clothes() async{
+  final Database db = await database;
+
+  //query table for all clothes
+  final List<Map<String, dynamic>> maps = await db.query('clothes');
+
+//convert list of maps to list of clothes
+  return List.generate(maps.length, (i){
+    return Clothes(
+      id: maps[i]['id'],
+      name: maps[i]['name'],
+      price: maps[i]['price'],
+      );
+  });
+
+}
 }
