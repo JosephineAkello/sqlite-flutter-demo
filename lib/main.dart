@@ -85,4 +85,17 @@ Future<List<Clothes>> clothes() async{
   });
 
 }
+
+Future<void> deleteClothes(int id) async{
+  final db=  await database;
+
+  //remove clothes from DB
+  await db.delete('clothes',
+  //use where clause to delete a specific clothe
+   where:  'id = ?',
+   //pass the clothes id as WhereArgs to prevent sql injecton
+   whereArgs: [id],
+  );
+}
+//print(await clothes());
 }
