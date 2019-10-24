@@ -29,4 +29,7 @@ class Sqlite extends StatelessWidget{
       )
     );
   }
+  Future<Database> database = openDatabase(
+    join(await getDatabasesPath(), 'clothes_database.db')
+  );
 }
