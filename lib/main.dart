@@ -6,6 +6,13 @@ void main(){
   runApp(Sqlite());
 }
 
+class Clothes {
+  final int id;
+  final String name;
+  final int age;
+
+  Clothes({this.id, this.name,this.age});
+}
 class Sqlite extends StatelessWidget{
   Widget build(context){
     return MaterialApp(
