@@ -9,9 +9,9 @@ void main(){
 class Clothes {
   final int id;
   final String name;
-  final int age;
+  final int price;
 
-  Clothes({this.id, this.name,this.age});
+  Clothes({this.id, this.name,this.price});
 }
 class Sqlite extends StatelessWidget{
   Widget build(context){
@@ -30,6 +30,13 @@ class Sqlite extends StatelessWidget{
     );
   }
   Future<Database> database = openDatabase(
-    join(await getDatabasesPath(), 'clothes_database.db')
+    join(await getDatabasesPath(), 'clothes_database.db'),
+    onCreate: (db, version){
+     return db.execute(
+       //create clothes table
+       'CREATE TABLE clothes(id INTEGER PRIMARY KEY, name TEXT, price INTEGER)'
+     );
+    },
+    version: 1,
   );
 }
